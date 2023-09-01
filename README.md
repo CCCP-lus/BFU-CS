@@ -1,4 +1,7 @@
 # BFU-CS_CourseDesign
-## Author: CCCP-lus
-## Update: 2023.09.01
-Folder "Book Manage System" is a course design project for the C language and C++ language courses.
+#### Author: CCCP-lus
+#### Update: 2023.09.01
+
+## Content
+### Book Manage System
+The folder "Book Manage System" contains course designs for C language and C++ language courses.
