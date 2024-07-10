@@ -1,9 +1,8 @@
-# BFU-CS_CourseDesign
+# 北林计科资料合集BFU-CS
 #### Author: CCCP-lus
-#### Update: 2023.09.01
+#### Update: 2024.07.10
 
-## Content
-### Book Manage System
-The folder "Book Manage System" contains course designs for C language and C++ language courses.
-### Chat Room
-The folder "ChatRoom" contains a simple chat room in C/S mode. It is a course design for JAVA course.
+## 目录
+### C语言程序设计基础
+
+### JAVA基础

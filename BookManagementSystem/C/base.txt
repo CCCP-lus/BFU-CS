@@ -1,8 +1,0 @@
-100000	HandSome_Ccc       Ccc'sGf                  	Mistery                  	5                        	
-100003	How_To_Play           Ccc                      	My_self                  	5                        	
-100009	How_To_Play           Ccc                      	q                        	2                        	
-100006	January                  	Man                      	Qsdf                     	1                        	
-100002	Ohh                      	Qwe                      	Emm                      	1                        	
-100004	Questioning             AnyBody                 SomeWhere             3                        	
-100001	Whatttt                  	Ccc                      	Qwe                      	4                        	
-100005	Yes_I_Can                	Ccc                      	Opportunisty           3                        	
