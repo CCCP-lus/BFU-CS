@@ -1,13 +1,13 @@
-# 🌟 IntroductionToComputer2023 文件夹结构
+# 🌟  文件夹结构
 
-以下是 **IntroductionToComputer2023** 文件夹的内容和用途说明：
+以下是该文件夹的内容和用途说明：
 
 ---
 
 ## 📂 文件夹结构概览
 
 ```plaintext
-IntroductionToComputer2023/
+ReviewMaterial/
 ├── 📂 C++        —— 编程课程内容
 ├── 📂 思政       —— 思想政治课程资源
 ├── 📂 物理学D    —— 物理学课程（D类）资料
