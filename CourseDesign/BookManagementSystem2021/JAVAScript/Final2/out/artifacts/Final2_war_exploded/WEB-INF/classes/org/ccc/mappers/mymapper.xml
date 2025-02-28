@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ccc.mappers.mymapper">
+
+    <!--  根据用户名在用户表查询用户  -->
+    <select id="selectUserByUserName" parameterType="String" resultType="org.ccc.pojo.User">
+        select * from user_table where username = #{username}
+    </select>
+
+    <!--  根据用户ID在用户表查询用户  -->
+    <select id="selectUserByUserId" parameterType="int" resultType="org.ccc.pojo.User">
+        select * from user_table where user_id = #{user_id}
+    </select>
+
+    <!--  获取用户表全部用户  -->
+    <select id="selectAllUser" resultType="org.ccc.pojo.User">
+        select * from user_table
+    </select>
+
+    <!--  获取用户表全部用户  -->
+    <insert id="addUser" parameterType="org.ccc.pojo.User" keyProperty="user_id" useGeneratedKeys="true">
+        insert into user_table (user_id,username,password,real_name,phone,e_mail,address,work_no,is_register,create_time,sex,photo,situation,last_time,workplace_name)
+        values(#{user_id},#{username},#{password},#{real_name},#{phone},#{e_mail},#{address},#{work_no},#{is_register},#{create_time},#{sex},#{photo},#{situation},#{last_time},#{workplace_name})
+    </insert>
+
+    <!--  获取用户表全部用户的工号  -->
+    <select id="selectAllWorkNumber" resultType="String">
+        select work_no from user_table
+    </select>
+
+    <!--  获取用户表全部用户的用户名  -->
+    <select id="selectAllUsername" resultType="String">
+        select username from user_table
+    </select>
+
+    <!--  根据角色ID在角色表查询用户  -->
+    <select id="selectRoleByRoleId" parameterType="int" resultType="org.ccc.pojo.Role">
+        select * from role_table where role_id = #{role_id}
+    </select>
+
+    <!--  根据用户ID在角色表查询用户ID  -->
+    <select id="selectRoleIdByUserId" parameterType="int" resultType="int">
+        select role_id from user_role_table where user_id = #{user_id}
+    </select>
+
+    <!--  更新个人信息（密码重置）  -->
+    <update id="updatePersonalInfo" parameterType="org.ccc.pojo.User">
+        update user_table set password= #{password}, real_name=#{real_name}, sex= #{sex}, phone= #{phone}, e_mail= #{e_mail}, address= #{address}, photo=#{photo} where user_id= #{user_id}
+    </update>
+
+    <!--  更新个人信息（不修改密码）  -->
+    <update id="updateUserByUserId" parameterType="org.ccc.pojo.User">
+        update user_table set real_name= #{real_name}, sex=#{sex}, phone= #{phone}, e_mail= #{e_mail}, address= #{address} where user_id= #{user_id}
+    </update>
+
+    <!--  通过用户ID更新用户  -->
+    <update id="updateUser" parameterType="org.ccc.pojo.User">
+        update user_table set username=#{username}, password=#{password}, real_name= #{real_name}, sex=#{sex}, phone= #{phone}, e_mail= #{e_mail}, address= #{address}, work_no=#{work_no}, is_register=#{is_register}, create_time=#{create_time}, photo=#{photo}, situation=#{situation}, last_time=#{last_time}, workplace_name=#{workplace_name} where user_id= #{user_id}
+    </update>
+
+    <!--  删除一个用户  -->
+    <delete id="deleteUser" parameterType="int">
+        delete from user_table where user_id=#{user_id}
+    </delete>
+
+    <!--  增加一个单位  -->
+    <insert id="addWorkplace" parameterType="org.ccc.pojo.Workplace" keyProperty="workplace_id" useGeneratedKeys="true">
+        insert into workplace_table (workplace_name, workplace_linkman, workplace_telephone, workplace_e_mail, workplace_address, workplace_character)
+        values(#{workplace_name},#{workplace_linkman},#{workplace_telephone},#{workplace_e_mail},#{workplace_address},#{workplace_character})
+    </insert>
+
+    <!--  根据单位ID查询单位  -->
+    <select id="selectWorkplaceByWorkplaceId" parameterType="int" resultType="org.ccc.pojo.Workplace">
+        select * from workplace_table where workplace_id = #{workplace_id}
+    </select>
+
+    <!--  根据单位名称查询单位  -->
+    <select id="fuzzyQueryByWorkplaceName" parameterType="String" resultType="org.ccc.pojo.Workplace">
+        select * from workplace_table where workplace_name like #{workplace_name}
+    </select>
+
+    <!--  获取单位表全部单位  -->
+    <select id="selectAllWorkplace" resultType="org.ccc.pojo.Workplace">
+        select * from workplace_table
+    </select>
+
+    <!--  根据单位ID删除一个单位  -->
+    <delete id="deleteWorkplaceByWorkplaceId" parameterType="int">
+        delete from workplace_table where workplace_id=#{workplace_id}
+    </delete>
+
+    <!--  更新单位表  -->
+    <update id="updateWorkplace" parameterType="org.ccc.pojo.Workplace">
+        update workplace_table set workplace_name=#{workplace_name}, workplace_linkman=#{workplace_linkman}, workplace_telephone=#{workplace_telephone}, workplace_e_mail=#{workplace_e_mail}, workplace_address=#{workplace_address}, workplace_character=#{workplace_character} where workplace_id=#{workplace_id}
+    </update>
+
+    <!--  向用户-角色表添加一条记录  -->
+    <insert id="addOneUserRole" parameterType="org.ccc.pojo.User_Role">
+        insert into user_role_table (user_id, role_id) values(#{user_id}, #{role_id})
+    </insert>
+
+    <!--  获取图书表全部图书  -->
+    <select id="selectAllBook" resultType="org.ccc.pojo.Book">
+        select * from book_table
+    </select>
+
+    <!--  添加一本图书  -->
+    <insert id="addBook" parameterType="org.ccc.pojo.Book" keyProperty="bookid" useGeneratedKeys="true">
+        insert into book_table (book_name,author,publish_time,publisher,category,page_number,price,picture,privilege,enter_by)
+        values(#{book_name},#{author},#{publish_time},#{publisher},#{category},#{page_number},#{price},#{picture},#{privilege},#{enter_by})
+    </insert>
+
+    <!--  删除一本图书  -->
+    <delete id="deleteBook" parameterType="int">
+        delete from book_table where book_id = #{book_id}
+    </delete>
+
+    <!--  根据图书编号更新一本图书  -->
+    <update id="updateBookByBookId" parameterType="org.ccc.pojo.Book">
+        update book_table set book_name=#{book_name}, author=#{author}, publish_time=#{publish_time}, publisher=#{publisher}, category=#{category}, page_number=#{page_number}, price=#{price}, picture=#{picture}, privilege=#{privilege} where book_id=#{book_id}
+    </update>
+
+    <!--  根据图书名查询图书  -->
+    <select id="fuzzyQueryByBookName" parameterType="String" resultType="org.ccc.pojo.Book">
+        select * from book_table where book_name like #{book_name}
+    </select>
+
+    <!--  根据作者名查询图书  -->
+    <select id="fuzzyQueryByAuthor" parameterType="String" resultType="org.ccc.pojo.Book">
+        select * from book_table where author like #{author}
+    </select>
+
+    <!--  根据图书ID查找图书  -->
+    <select id="fuzzyQueryById" parameterType="String" resultType="org.ccc.pojo.Book">
+        select * from book_table where book_id like #{book_id}
+    </select>
+
+    <!--  根据图书出版社查找图书  -->
+    <select id="fuzzyQueryByPublisher" parameterType="String" resultType="org.ccc.pojo.Book">
+        select * from book_table where publisher like #{publisher}
+    </select>
+
+    <!--  根据出版社查找图书  -->
+    <select id="selectBookByPublisher" parameterType="String" resultType="org.ccc.pojo.Book">
+        select * from book_table where publisher = #{publisher}
+    </select>
+
+    <!--  根据单位名查询用户表用户  -->
+    <select id="fuzzyQueryUsernameByWorkplaceName" parameterType="String" resultType="String">
+        select username from user_table where workplace_name like #{workplace_name}
+    </select>
+
+    <!--  根据图书编号查找审核情况  -->
+    <select id="selectReviewByBookId" parameterType="int" resultType="org.ccc.pojo.Review">
+        select * from review_table where book_id=#{book_id}
+    </select>
+
+    <!--  增加一条审核记录  -->
+    <insert id="addReview" parameterType="org.ccc.pojo.Review" keyProperty="circulate_id" useGeneratedKeys="true">
+        insert into review_table (book_id,workplace_name,user_id,status,reason,notes,now_time)
+        values(#{book_id},#{workplace_name},#{user_id},#{status},#{reason},#{notes},#{now_time})
+    </insert>
+
+    <!--  获取审核表全部记录  -->
+    <select id="selectAllReview" resultType="org.ccc.pojo.Review">
+        select * from review_table
+    </select>
+
+    <!--  根据图书编号获取图书  -->
+    <select id="selectBookByBookId" parameterType="int" resultType="org.ccc.pojo.Book">
+        select * from book_table where book_id = #{book_id}
+    </select>
+
+    <!--  根据审核编号获取记录  -->
+    <select id="selectReviewByReviewId" parameterType="int" resultType="org.ccc.pojo.Review">
+        select * from review_table where review_id=#{review_id}
+    </select>
+
+    <!--  获取用户表全部用户  -->
+    <delete id="deleteReviewByReviewId" parameterType="int">
+        delete from review_table where review_id=#{review_id}
+    </delete>
+
+    <!--  根据审核编号更新审核记录  -->
+    <update id="updateReview" parameterType="org.ccc.pojo.Review">
+        update review_table set book_id= #{book_id}, workplace_name= #{workplace_name}, user_id= #{user_id}, status= #{status}, reason=#{reason}, notes=#{notes}, now_time=#{now_time} where review_id= #{review_id}
+    </update>
+
+    <!--  增加一条借阅记录  -->
+    <insert id="addOneBorrow" parameterType="org.ccc.pojo.Borrow" keyProperty="borrowid" useGeneratedKeys="true">
+        insert into borrow_table (book_id,workplace_name,user_id,borrow_time,return_time,borrow_reason,borrower_name,borrower_phone,remarks)
+        values(#{book_id},#{workplace_name},#{user_id},#{borrow_time},#{return_time},#{borrow_reason},#{borrower_name},#{borrower_phone},#{remarks})
+    </insert>
+
+    <!--  根据借阅编号更新借阅记录  -->
+    <update id="updateBorrow" parameterType="org.ccc.pojo.Borrow">
+        update borrow_table set book_id= #{book_id}, workplace_name= #{workplace_name}, user_id= #{user_id}, borrow_time= #{borrow_time},return_time=#{return_time}, borrow_reason=#{borrow_reason}, borrower_name=#{borrower_name}, borrower_phone=#{borrower_phone}, remarks=#{remarks} where borrow_id= #{borrow_id}
+    </update>
+
+    <!--  获取全部借阅记录  -->
+    <select id="selectAllBorrow" resultType="org.ccc.pojo.Borrow">
+        select * from borrow_table
+    </select>
+
+    <!--  根据图书编号查找审核情况  -->
+    <select id="selectCheckByBookId" parameterType="int" resultType="org.ccc.pojo.Check">
+        select * from check_table where book_id=#{book_id}
+    </select>
+
+    <!--  增加一条审核记录  -->
+    <insert id="addCheck" parameterType="org.ccc.pojo.Check" keyProperty="circulate_id" useGeneratedKeys="true">
+        insert into check_table (book_id,workplace_name,user_id,status,reason,notes,now_time)
+        values(#{book_id},#{workplace_name},#{user_id},#{status},#{reason},#{notes},#{now_time})
+    </insert>
+
+    <!--  获取审核表全部记录  -->
+    <select id="selectAllCheck" resultType="org.ccc.pojo.Check">
+        select * from check_table
+    </select>
+
+    <!--  根据审核编号获取记录  -->
+    <select id="selectCheckByCheckId" parameterType="int" resultType="org.ccc.pojo.Check">
+        select * from check_table where check_id=#{check_id}
+    </select>
+
+    <!--  获取用户表全部用户  -->
+    <delete id="deleteCheckByCheckId" parameterType="int">
+        delete from check_table where check_id=#{check_id}
+    </delete>
+
+    <!--  根据审核编号更新审核记录  -->
+    <update id="updateCheck" parameterType="org.ccc.pojo.Check">
+        update check_table set book_id= #{book_id}, workplace_name= #{workplace_name}, user_id= #{user_id}, status= #{status}, reason=#{reason}, notes=#{notes}, now_time=#{now_time} where check_id= #{check_id}
+    </update>
+
+    <!--  添加一个用户借阅信息  -->
+    <insert id="addOneCirculate" parameterType="org.ccc.pojo.Circulate" keyProperty="circulate_id" useGeneratedKeys="true">
+        insert into circulate_table(book_id, workplace_id, user_id, circulate_time, return_time, circulate_reason, applicant, applicant_phone, remarks)
+        values (#{book_id},#{workplace_id},#{user_id},#{circulate_time},#{return_time},#{circulate_reason},#{applicant},#{applicant_phone},#{remarks})
+    </insert>
+
+    <!--  更新一个用户借阅信息  -->
+    <update id="updateCirculate" parameterType="org.ccc.pojo.Circulate">
+        update circulate_table set book_id = #{book_id}, workplace_id = #{workplace_id}, user_id = #{user_id}, circulate_time = #{circulate_time}, return_time = #{return_time}, circulate_reason = #{circulate_reason}, applicant = #{applicant}, applicant_phone = #{applicant_phone}, remarks = #{remarks} where circulate_id = #{circulate_id}
+    </update>
+
+    <!--  选择所有用户借阅信息  -->
+    <select id="selectAllCirculate" resultType="org.ccc.pojo.Circulate">
+        select * from circulate_table
+    </select>
+
+</mapper>

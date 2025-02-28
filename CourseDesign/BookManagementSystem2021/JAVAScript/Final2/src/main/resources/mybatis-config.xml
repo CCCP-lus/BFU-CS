@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!--    &lt;!&ndash; 全局配置 &ndash;&gt;-->
+<!--    <settings>-->
+<!--        &lt;!&ndash;允许 JDBC 支持自动生成主键&ndash;&gt;-->
+<!--        <setting name="useGeneratedKeys" value="false"/>-->
+
+<!--        &lt;!&ndash;是否开启自动驼峰命名规则（camel case）映射，即从经典数据库列名 A_COLUMN 到经典Java 属性名 aColumn 的类似映射。 &ndash;&gt;-->
+<!--        <setting name="mapUnderscoreToCamelCase" value="false"/>-->
+<!--    </settings>-->
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/finalwork"/>
+                <property name="username" value="root"/>
+                <property name="password" value="0421daaijielun"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="org/ccc/mappers/mymapper.xml"/>
+    </mappers>
+
+</configuration>
