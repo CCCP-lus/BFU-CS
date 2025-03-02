@@ -1,0 +1,9 @@
+.vscode
+
+*.o
+
+C/scanner
+
+Lex/lexer
+
+.DS_Store
