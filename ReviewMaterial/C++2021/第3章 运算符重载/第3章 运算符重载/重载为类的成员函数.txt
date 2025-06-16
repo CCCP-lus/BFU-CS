@@ -1,0 +1,67 @@
+#include<iostream>
+#include<string>
+#include<cstdlib>
+using namespace std;
+
+
+class MyString{
+private:
+	char s[50];
+public:
+	MyString(const char * s);
+	bool operator!();
+};
+
+MyString::MyString(const char * s){ 
+	strcpy_s(this->s, s);
+}
+
+bool MyString::operator!(){
+	if (strlen(s) == 0) return true;
+	else return false;
+}
+
+int main()
+{
+	MyString s("");
+	cout << !s << endl;
+	MyString s2("HEllO");
+	cout << !s2 << endl;
+	system("pause");
+	return 0;
+}
+
++++++++++++++++++++++++++++
+
+#include<iostream>
+#include<cstring>
+using namespace std;
+
+class MyString{
+private:
+	char s[50];
+public:
+	MyString(const char * s);
+	bool operator!();
+};
+
+MyString::MyString(const char * s){ 
+	strcpy(this->s, s);
+}
+
+bool MyString::operator!(){
+	if (strlen(s) == 0) return true;
+	else return false;
+}
+
+int main()
+{
+	MyString s("");
+	cout << !s << endl;
+	MyString s2("HEllO");
+	cout << !s2 << endl;
+
+	return 0;
+}
+
+

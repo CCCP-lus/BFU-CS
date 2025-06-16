@@ -1,0 +1,34 @@
+#include<iostream>
+#include<queue>
+#include<vector>
+using namespace std;
+
+struct number1
+{
+	int x;
+	bool operator < (const number1 &a)const {
+		return x > a.x;         // 从小到大  ，x 小的 优先级别高
+	}
+};
+
+struct number2
+{
+	int x;
+	bool operator < (const number2 &a)const {
+		return x < a.x;            // 从大到小  ，x 大的优先级别高
+	}
+};
+
+int a[] = {14,10,56,7,83,22,36,91,3,47,72,0};
+number1 num1[] ={14,10,56,7,83,22,36,91,3,47,72,0};
+number2 num2[] ={14,10,56,7,83,22,36,91,3,47,72,0};
+
+	priority_queue<int>que;
+        	priority_queue<int, vector<int>, cmp1 >que1;
+	priority_queue<int, vector<int>, cmp2 >que2;
+	
+        while(!que.empty())
+	{
+		printf("%3d",que.top());
+		que.pop();
+	}

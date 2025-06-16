@@ -1,0 +1,37 @@
+#include<iostream>
+#include<cstdlib>
+using namespace std;
+
+
+
+int main()
+{
+	FILE * fp = fopen("b.txt","w");
+	char temp[100];
+	
+	while(gets(temp)) fputs(temp,fp);
+
+	fclose(fp);
+	return 0;
+}
+
+
++++++++++++++++++++
+
+#include<cstdio>
+
+int main() {
+
+	FILE * fread = fopen("test.txt", "r");
+	FILE * fwrite = fopen("answer.txt", "w");
+	char t[100];
+	while (!feof(fread)){
+		fgets(t, 99, fread);
+		fputs(t, fwrite);
+	}
+
+	fclose(fwrite);
+	fclose(fread);
+
+	return 0;
+}

@@ -1,0 +1,16 @@
+#include <iostream>
+using namespace std;
+
+struct absInt{
+	int operator()(int val){
+		return val < 0 ? -val : val;
+	}
+};
+
+int main(){
+	int i = -5;
+	absInt absObj;
+	cout << absObj(i) << endl;
+
+	return 0;
+}

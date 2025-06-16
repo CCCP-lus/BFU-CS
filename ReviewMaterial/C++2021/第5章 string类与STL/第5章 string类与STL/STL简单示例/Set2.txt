@@ -1,0 +1,99 @@
+/*
+ * set插入的元素不能相同，但是multiset可以相同
+ * 默认升序,重定义bool operator<( const node2 &tmp ) const { return y>tmp.y;}
+ * multiset<int>::iterator it = mst.find(s); if(it !=  mst.end()) 找到
+ * multiset<int>::iterator it = mst.lower_bound(k);指向键值>=k的第一个元素
+ * multiset<int>::iterator it = mst.upper_bound(k);指向键值>k的第一个元素, it-- 就得到<=val 的最大值
+ * mst.erase(it);
+ * set 本质平衡二叉树，有很好的查找性能，可以把素数表插入set进行find判断是否是素数
+ */
+/*****************************/
+//集合操作
+int main()
+{
+       int a[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+       set<int> S( a, a + 9 );
+       set<int> S2;
+       S2.insert(34);S2.insert(3);S2.insert(27);S2.insert(31);
+       set<int>::iterator site;
+ 
+       set<int> Su;
+       set<int> Si;
+       set<int> Sd;
+       set<int> Ssd;
+      
+       //交集
+       set_intersection( S.begin(), S.end(),
+                                   S2.begin(), S2.end(),
+                                   inserter( Si, Si.begin() ) );
+                                  
+       //并集
+       set_union( S.begin(), S.end(),
+                     S2.begin(), S2.end(),
+                        inserter( Su, Su.begin() ) );
+                       
+       //差集
+       set_difference( S.begin(), S.end(),
+                                S2.begin(), S2.end(),
+                                   inserter( Sd, Sd.begin() ) );
+      
+       //对称差集,即A△B=(A∪B)-(A∩B)
+       set_symmetric_difference( S.begin(), S.end(),
+                                                S2.begin(), S2.end(),
+                                                 inserter( Ssd, Ssd.begin() ) );
+
+/********************************/
+/*
+ * insert()使用
+ */
+#include <iostream>
+#include <algorithm>
+#include <set>
+#include <cmath>
+using namespace std;
+#define MAX 0x7ffffff
+
+#define MAXN 100004
+
+struct node{
+	int id,pow;
+	node(int a,int b){id=a,pow=b;}
+	bool operator<(const node &tmp)const{return pow<tmp.pow;}
+	node(){
+		pow=MAX;
+	};
+};
+int cmp(node a,node b){
+	return a.pow<b.pow;
+}
+int main(){
+//	freopen("in.txt","r",stdin);
+	multiset<node> person;
+	int sx[MAXN];
+	multiset<node>::iterator p;
+	int n,id,pow;
+	while (scanf("%d",&n)&&n){
+		person.clear();
+		int cnt=0;
+		person.insert(node(1,MAX-1));
+		for(int i=0;i<n;i++){
+			scanf("%d %d",&id,&pow);
+			sx[cnt++]=id;
+			p=person.insert(node(id,pow));
+			node t1,t2;
+			if (p!=person.begin()){
+				p--;
+				t1=*p;
+				p++;
+			}
+			p++;
+			if (p!=person.end()){
+				t2=*p;
+			}
+			int next=abs(t1.pow-pow)>abs(t2.pow-pow)?t2.id:t1.id;
+			printf("%d %d\n",id,next);
+		}
+	}
+
+	return 0;
+}

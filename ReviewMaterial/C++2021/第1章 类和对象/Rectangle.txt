@@ -1,0 +1,27 @@
+#include<iostream>
+using namespace std;
+
+class Rectangle{
+private:
+	double width, length;
+public:
+	void set_w_l(double, double);
+	double area();
+};
+
+void Rectangle::set_w_l(double _width, double _length){
+	width = _width;
+	length = _length;
+}
+
+double Rectangle::area(){
+	return width*length;
+}
+
+int main(){
+	Rectangle r0;
+	r0.set_w_l(2,3);
+	cout<<r0.area()<<endl;
+	
+	return 0;
+}

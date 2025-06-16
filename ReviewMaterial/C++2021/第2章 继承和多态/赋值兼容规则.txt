@@ -1,0 +1,45 @@
+#include<iostream>
+using namespace std;
+
+class Base
+{
+private:
+	int b;
+public:
+	Base(int i=10)
+	{
+		b = i;
+	}
+	void show();
+};
+
+void Base::show()
+{
+	cout<<"In class Base, show() is called."<<endl;
+}
+
+class Derived : public Base
+{
+private:
+	int d;
+public:
+	Derived(int j=20)
+	{
+		d = j;
+	}
+	void show(){ cout << "In class Derived, show() is called" << endl; }
+};
+
+void fun(Base &ref)
+{
+	ref.show();
+}
+
+int main()
+{
+	Base b;
+	fun(b);
+	Derived d;
+	fun(d);
+	return 0;
+}

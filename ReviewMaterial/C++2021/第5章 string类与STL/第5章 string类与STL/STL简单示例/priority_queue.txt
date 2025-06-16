@@ -1,0 +1,69 @@
+#include<iostream>
+#include<functional>
+#include<queue>
+#include<vector>
+using namespace std;
+
+struct cmp1
+{
+	bool operator () (int &a, int &b)
+	{
+		return a > b ;              //从小到大排序，值小的优先级别高
+	}
+};
+
+struct cmp2
+{
+	bool operator () (int &a, int &b)
+	{
+		return a < b;             //从大到小
+	}
+};
+
+struct number1
+{
+	int x;
+	bool operator < (const number1 &a)const
+	{
+		return x > a.x;         //从小到大，x小的优先级别高
+	}
+};
+
+struct number2
+{
+	int x;
+	bool operator < (const number2 &a)const
+	{
+		return x < a.x;            //从大到小，x大的优先级别高
+	}
+};
+
+int a[] = {14,10,56,7,83,22,36,91,3,47,72,0};
+number1 num1[] ={14,10,56,7,83,22,36,91,3,47,72,0};		//数组类型是number1和number2
+number2 num2[] ={14,10,56,7,83,22,36,91,3,47,72,0};
+
+int main()
+{
+	//常见的几种用法：
+	priority_queue<int>que;  // 采用默认优先级构造队列从大到小。
+
+	priority_queue<int, vector<int>, cmp1 >que1;
+	priority_queue<int, vector<int>, cmp2 >que2;
+
+	priority_queue<int, vector<int>, greater<int> > que3;  //functional 头文件自带的
+	priority_queue<int, vector<int>, less<int> > que4;      //functional 头文件自带的
+
+	priority_queue<number1> que5;
+	priority_queue<number2> que6;
+
+
+	/*常用的函数：
+	 * que.empty()，判断队列是否为空，空返回true
+	 * que.top()，返回队首元素
+	 * que.push()，往队列里加元素
+	 * que.pop()，删除队首元素
+	 * que.size()，返回队列中元素个数
+	*/
+
+	return 0;
+}

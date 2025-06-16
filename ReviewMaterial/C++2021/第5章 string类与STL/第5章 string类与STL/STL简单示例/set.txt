@@ -1,0 +1,110 @@
+一个集合(set)是一个容器，它其中所包含的元素的值是唯一的。集合中的元素按一定的顺序排列，并被作为集合中的实例。
+一个集合通过一个链表来组织，在插入操作和删除操作上比向量(vector)快，但查找或添加末尾的元素时会有些慢。
+具体实现采用了红黑树的平衡二叉树的数据结构。
+
+#include <set>
+
+//常见操作
+begin() 返回指向第一个元素的迭代器
+clear() 清除所有元素
+count() 返回某个值元素的个数
+empty() 如果集合为空，返回true(真）
+end() 返回指向最后一个元素之后的迭代器，不是最后一个元素
+equal_range() 返回集合中与给定值相等的上下限的两个迭代器
+erase() 删除集合中的元素
+find() 返回一个指向被查找到元素的迭代器
+get_allocator() 返回集合的分配器
+insert() 在集合中插入元素
+lower_bound() 返回指向小于（或等于）某值的第一个元素的迭代器
+upper_bound() 返回指向大于某值的第一个元素的迭代器
+key_comp() 返回一个用于元素间值比较的函数
+max_size() 返回集合能容纳的元素的最大限值
+rbegin() 返回指向集合中最后一个元素的反向迭代器
+rend() 返回指向集合中第一个元素的反向迭代器
+size() 集合中元素的数目
+swap() 交换两个集合变量
+value_comp() 返回一个用于比较元素间的值的函数
+
+
+例子：
+#include <iostream>
+#include <set>
+using namespace std;
+int main()
+{
+	//定义一对多的set
+	multiset<int> myset2[110];
+
+	//定义容器set和迭代器
+	set<int> myset;
+	set<int>::iterator it,itlow,itup;
+
+	//往容器里插入元素
+	for(int i=1;i<=10;i++)
+		myset.insert(i*10);
+	myset.insert(55);
+
+	//输出容器元素个数
+	printf("%d\n",(int) myset.size());
+	//11
+
+	//依次输出容器元素
+	for(it=myset.begin();it!=myset.end();it++)
+		printf("%d ",*it);
+	printf("\n");
+	//10 20 30 40 50 55 60 70 80 90 100
+
+	//依次输出容器元素并删除
+//	while(!myset.empty())
+//	{
+//		printf("%d ",*myset.begin());
+//		myset.erase(myset.begin());
+//	}
+//	printf("\n");
+
+	//从容器里查找元素70并删除
+	it=myset.find(70);
+	myset.erase(it);
+
+	//输出容器里20和25的个数
+	printf("%d\n",myset.count(20));
+	printf("%d\n",myset.count(25));
+	//1
+	//0
+
+	//找到第一个小于等于30的容器，第一个大于60的容器
+	itlow=myset.lower_bound(30);
+	itup=myset.upper_bound(60);
+	for(it=itlow;it!=itup;it++)
+		printf("%d ",*it);
+	printf("\n");
+	//40 50 55 60
+
+	//找到集合中给定值相等的上下限的两个迭代器
+	pair<set<int>::iterator, set<int>::iterator > ret;
+	ret=myset.equal_range(30);
+	printf("lower bound points to: %d\n",*ret.first);
+	printf("upper bound points to: %d\n",*ret.second);
+	//lower bound points to: 30
+	//upper bound points to: 40
+
+	//清空容器
+	myset.clear();
+    return 0;
+}
+
+
+//自定义排序方法的set定义方法：
+struct Node{
+	int x,y;
+};
+
+struct cmp{
+	bool operator ()(const Node& a,const Node& b)	//x小的优先，x相同时y小的优先
+		{
+			if(a.x == b.x)
+				return a.y < b.y;
+			return a.x < b.x;
+		}
+};
+set<Node,cmp> myset;

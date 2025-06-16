@@ -1,0 +1,32 @@
+#include <iostream>
+using namespace std;
+
+
+class Desk   		//定义Desk类
+{	
+private:	
+		int width;		
+		int length;
+public:
+		Desk(){
+			width = 5;
+			length = 10;
+		}
+		void show()
+		{
+			cout<<width<<" "<<length<<endl;
+		}
+};
+
+Desk  da;   		//定义全局对象
+
+int main()
+{
+	static Desk  db; 	//定义局部静态对象
+	Desk dc;   		//定义局部对象
+	da.show();
+	db.show();
+	dc.show();
+
+	return 0;
+}

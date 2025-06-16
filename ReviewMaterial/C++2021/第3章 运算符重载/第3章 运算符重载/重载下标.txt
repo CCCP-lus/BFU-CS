@@ -1,0 +1,39 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Foo{
+public:
+	int & operator[](const size_t); //与机器相关的unsigned类型
+	const int & operator[](const size_t) const;
+	//...
+	Foo();
+private:
+	vector<int> data;
+	//...
+};
+int & Foo::operator[](const size_t index){
+	return data[index];
+}
+const int & Foo::operator[](const size_t index) const {
+	return data[index];
+}
+
+Foo::Foo(){
+	for (int i = 0; i < 10; i++)
+		data.push_back(i);
+}
+
+int main(){
+	Foo f;
+	for (int i = 0; i < 10; i++)
+		cout << f[i] << " ";
+	cout << endl;
+
+	const Foo f2;
+	for (int i = 0; i < 10; i++)
+		cout << f2[i] << " ";
+	cout << endl;
+
+	return 0;
+}

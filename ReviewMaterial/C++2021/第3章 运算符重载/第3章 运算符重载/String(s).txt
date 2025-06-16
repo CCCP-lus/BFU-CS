@@ -1,0 +1,322 @@
+#include<iostream>
+#include<cstring>
+#include<cstdlib>
+using namespace std;
+
+class String{
+private:
+	char * s;
+public:
+	String();
+	String(const char *);
+	String(const String &);
+	~String();
+	String & operator=(const char *);
+	String & operator=(const String &);
+	friend istream & operator>>(istream &, String &);
+	friend ostream & operator<<(ostream &, const String &);
+};
+
+String::String(){
+	s = new char[1];
+	s[0] = '\0';
+}
+
+String::String(const char * sp){
+	s = new char[strlen(sp) + 1];
+	strcpy_s(s,strlen(sp)+1,sp);
+}
+
+String::String(const String & str){
+	s = new char[strlen(str.s) + 1];
+	strcpy_s(s, strlen(str.s) + 1, str.s);
+}
+
+String::~String(){ delete [] s; }
+
+String & String::operator=(const char * sp){
+	delete [] s;
+	s = new char[strlen(sp) + 1];
+	strcpy_s(s, strlen(sp) + 1, sp);
+	return *this;
+}
+
+String & String::operator=(const String & str){
+	if (this != &str)
+		*this = str.s;
+	
+	return *this;
+}
+
+istream & operator>>(istream & is, String & str){
+	char temp[255];
+	is >> temp;
+	str = temp;
+	return  is;
+}
+
+ostream & operator<<(ostream & os, const String & str){
+	os << str.s;
+	return os;
+}
+
+
+int main()
+{
+	String s1, s2("string2");
+	String s3(s2);
+	s1 = "string1";
+	cout << s1 << "\n" << s2 << "\n" << s3 << endl;
+	String s4;
+	cin >> s4;
+	s1 = s4;
+	cout << s1 << "\n" << s4 << endl;
+
+	system("pause");
+	return 0;
+}
+
++++++++++++++++++++++++++++++++++++
+
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+class MyString{
+private:
+	char * str;
+public:
+	MyString();
+	MyString(const char * s);
+	MyString(const MyString &);
+	~MyString();
+	MyString & operator=(const MyString &);
+	friend ostream & operator<<(ostream &, const MyString &);
+	friend istream & operator>>(istream &, MyString &);
+};
+
+MyString::MyString(){
+	str = NULL;
+}
+
+MyString::MyString(const char * s){
+	str = new char[strlen(s) + 1];
+	strcpy(str, s);
+}
+
+MyString::MyString(const MyString & s){
+	str = new char[strlen(s.str) + 1];
+	strcpy(str, s.str);
+}
+
+MyString::~MyString(){
+	if(str!=NULL){
+		delete [] str;
+		str = NULL;
+	}
+}
+
+MyString & MyString::operator=(const MyString & s){
+	if (str == s.str) return *this;
+	if (str != NULL) {
+		delete[] str;
+		str = NULL;
+	}
+	str = new char[strlen(s.str) + 1];
+	strcpy(str, s.str);
+	return *this;
+}
+
+ostream & operator<<(ostream & os, const MyString & s){
+	os << s.str;
+	return os;
+}
+
+istream & operator>>(istream & is, MyString & s){
+	if (s.str != NULL) {
+		delete[] s.str;
+		s.str = NULL;
+	}
+	s.str = new char[100];
+	is >> s.str;
+	return is;
+}
+
+int main(){
+	MyString s1;
+	cin >> s1;
+	cout << s1 << endl;
+
+	MyString s2("world");
+	cout << s2 << endl;
+
+	MyString s3(s2);
+	cout << "copy of " << s2 << endl;
+
+	cout << (s1 = s1) << endl;
+	cout << (s1 = s2) << endl;
+
+	return 0;
+}
+
+
++++++++++++
+
+#include<iostream>
+#include<cstring>
+using namespace std;
+
+class String{
+	private:
+		char *str;
+	public:
+		String();
+		String(const char *s);
+		String(const String &);
+		~String();
+		String & operator=(const String &);
+		friend String operator+(const String &, const String &); 
+		friend ostream & operator<<(ostream &, const String &);
+};
+
+String::String(){
+	str = NULL;
+}
+
+String::String(const char *s){
+	str = new char[strlen(s)+1];
+	strcpy(str,s);
+}
+
+String::String(const String & s){
+	if(s.str!=NULL){
+		str = new char[strlen(s.str)+1];
+		strcpy(str,s.str);
+	}else str = NULL;
+}
+
+String::~String(){
+	if(str!=NULL){
+		delete [] str;
+		str = NULL;
+	} 
+}
+
+String & String::operator=(const String & s){  // a=b
+	if(s.str==NULL){
+		if(str!=NULL){
+			delete [] str;
+			str = NULL;
+			return *this;
+		}else return *this;
+	}else{
+		if(str!=NULL){
+			delete [] str;
+		}
+		str = new char[strlen(s.str)+1];
+		strcpy(str,s.str);
+		return *this;
+	}
+}
+
+String operator+(const String & s1, const String & s2){
+	if(s1.str==NULL && s2.str==NULL){
+		String tmp;
+		tmp.str = NULL;
+		return tmp;
+	}else if(s1.str==NULL)
+	{
+		String tmp(s2);
+		return tmp;
+	}else if(s2.str==NULL){
+		String tmp(s1);
+		return tmp;
+	}else{
+		String tmp;
+		tmp.str = new char[strlen(s1.str)+strlen(s2.str)+1];
+		strcpy(tmp.str,s1.str);
+		strcat(tmp.str,s2.str);
+		return tmp;
+	}
+}
+
+ostream & operator<<(ostream & os, const String & s){
+	os<<s.str;
+	return os;
+}
+
+int main(){
+	String s1("hello");
+	String s2(s1);
+	cout<<s1+s2<<endl;
+	String s3;
+	s3 = s1;
+	cout<<s3<<endl;
+	return 0;
+}
+
+++++++++
+
+#include<iostream>
+#include<cstring>
+using namespace std;
+
+class String{
+	private:
+		char * str;
+	public:
+		String();
+		String(const char *);
+		String(const String &);
+		~String();
+		String & operator=(const String &);
+		friend ostream & operator<<(ostream & out, const String s);
+};
+
+String::String(){
+	str = NULL;
+}
+
+String::String(const char * s){
+	str = new char[strlen(s)+1];
+	strcpy(str,s);
+}
+
+String::String(const String & s){
+	str = new char[strlen(s.str)+1];
+	strcpy(str,s.str);
+}
+
+String::~String(){
+	if(str!=NULL){
+		delete str;
+		str=NULL;
+	}
+}
+
+String & String::operator=(const String & s){
+	if(this->str!=NULL)
+		delete this->str;
+	this->str = new char[strlen(s.str)+1];
+	strcpy(this->str,s.str);
+	return *this;
+}
+
+ostream & operator<<(ostream & out, const String s){
+	if(s.str!=NULL)
+		out<<s.str;
+	return out;
+}
+
+int main(){
+	String s1, s2("hello"), s3("world");
+	String s4(s2);
+	s1 = s2;
+	s2 = s3;
+	cout<<s1<<" "<<s2<<" "<<s3<<" "<<s4<<endl;
+		
+	return 0;
+}
+
+
+

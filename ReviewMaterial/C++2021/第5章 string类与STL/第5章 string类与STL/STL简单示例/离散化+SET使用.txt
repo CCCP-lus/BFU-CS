@@ -1,0 +1,81 @@
+//给出一些能引起周围一定区域内炸弹爆炸的炸弹，按给出顺序引爆
+//输出每次爆炸会引起几个炸弹的爆炸
+//unique(）去重操作，返回去重后尾地址
+//lower_bound(first,last,val)求first到last区间内大于等于val第一个值
+
+#include<queue>
+#include<set>
+#include<algorithm>
+#include<iostream>
+#include<math.h>
+using namespace std;
+const int maxn = 100015;
+int myhash[maxn];
+struct node {
+	int x, y, d;
+} mine[maxn];
+struct node2 {
+	int y, id;
+	node2(int a, int b) {
+		y = a;
+		id = b;
+	}
+	bool operator<(const node2 &tmp) const {
+		return y < tmp.y;
+	}
+};
+multiset<node2> p[maxn];
+multiset<node2>::iterator LL, RR, it;
+queue<int> q;
+bool vis[maxn];
+
+int main() {
+	int n;
+	while (scanf("%d", &n) != EOF, n) {
+		for (int i = 0; i < n; i++) {
+			scanf("%d%d%d", &mine[i].x, &mine[i].y, &mine[i].d);
+			myhash[i] = mine[i].x; //在 x 方向离散化
+		}
+		sort(myhash, myhash + n);
+		int cnt = unique(myhash, myhash + n) - myhash;
+		for (int i = 0; i < cnt; i++)
+			p[i].clear();
+		memset(vis, 0, sizeof(vis));
+		for (int i = 0; i < n; i++) {
+			int pos = lower_bound(myhash, myhash + cnt, mine[i].x) - myhash;
+			p[pos].insert(node2(mine[i].y, i));  // i 是原序号
+		}
+		int id;
+		scanf("%d", &id);
+		while (!q.empty())
+			q.pop();
+		int ans = 0;
+		q.push(id);
+		vis[id] = 1;
+		while (!q.empty()) {
+			int now_id = q.front(); //点燃第一个
+			q.pop();
+			ans++;
+			int first_pos = lower_bound(myhash, myhash + cnt,
+					mine[now_id].x - mine[now_id].d) - myhash;
+			int last_pos = upper_bound(myhash, myhash + cnt,
+					mine[now_id].x + mine[now_id].d) - myhash;
+			//首先由横坐标确定大致的 x 寻找范围
+			for (int pos = first_pos; pos < last_pos; pos++) {
+				int dy = mine[now_id].d - abs(mine[now_id].x - myhash[pos]);
+				//lower_bound 与upper_bound配合确定上下界
+				LL = p[pos].lower_bound(node2(mine[now_id].y - dy, 0));
+				RR = p[pos].upper_bound(node2(mine[now_id].y + dy, 0));
+				for (it = LL; it != RR; it++) {
+					if (vis[it->id] == 0) {
+						vis[it->id] = 1;
+						q.push(it->id);
+					}
+				}
+				p[pos].erase(LL, RR); //删除已经爆炸的点 区间删除
+			}
+		}
+		printf("%d\n", ans);
+	}
+	return 0;
+}

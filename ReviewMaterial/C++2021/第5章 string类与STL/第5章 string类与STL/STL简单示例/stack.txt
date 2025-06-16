@@ -1,0 +1,17 @@
+#include<stack>
+
+1.普通声明
+stack<int>S;
+
+2.结构体声明
+struct node{
+	int x,y;
+};
+stack<node>S;
+
+常用函数：
+S.empty()，判断队列是否为空，空返回true
+S.top()，返回队首元素
+S.push()，往队列里加元素
+S.pop()，删除队首元素
+S.size()，返回队列中元素个数

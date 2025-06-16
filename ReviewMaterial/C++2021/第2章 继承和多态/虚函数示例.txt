@@ -1,0 +1,117 @@
+#include<iostream>
+#include<cstdlib>
+#include<string>
+using namespace std;
+
+class Person{
+protected:
+	string name;
+public:
+	Person(string name);
+	virtual void display();
+};
+
+Person::Person(string name){
+	this->name = name;
+}
+
+void Person::display(){
+	cout<<name<<endl;
+}
+
+class Student : public Person{
+private:
+	string no;
+public:
+	Student(string,string);
+	void display();
+};
+
+Student::Student(string name, string no) : Person(name){
+	this->no = no;
+}
+
+void Student::display(){
+	cout<<no<<" "<<name<<endl;
+}
+
+class Teacher : public Person{
+private:
+	string ID;
+public:
+	Teacher(string,string);
+	void display();
+};
+
+Teacher::Teacher(string name, string ID) : Person(name){
+	this->ID = ID;
+}
+
+void Teacher::display(){
+	cout<<ID<<" "<<name<<endl;
+}
+
+int main(){
+	Person * p = NULL;
+
+	Student s("Peter","1001");
+	p = &s;
+	p->display();
+
+	Teacher t("Susan","200000002");
+	p = &t;
+	p->display();
+
+	p = new Person("John");
+	p->display();
+	delete p;
+	p = NULL;
+
+	return 0;
+}
+
+
+
++++++++++++++
+
+#include<iostream>
+using namespace std;
+
+class Person{
+	protected:
+		string name;
+	public:
+		Person(string);
+		virtual void show();
+};
+
+Person::Person(string _name) : name(_name){
+}
+
+void Person::show(){
+	cout<<name<<endl;
+}
+
+class Student : public Person{
+	private:
+		string ID;
+	public:
+		Student(string,string);
+		void show();
+};
+
+Student::Student(string _name, string _ID) : Person(_name), ID(_ID){
+}
+
+void Student::show(){
+	cout<<name<<" "<<ID<<endl;
+}
+
+int main()
+{
+	Person * p = new Student("Susan","001");
+	p->show();
+	delete p;
+
+	return 0;
+}

@@ -1,0 +1,155 @@
+list就是一双向链表，可高效地进行插入删除元素。包括构造、方法等。
+
+常用函数：
+front()返回第一个元素的引用
+back()返回最后一元素的引用
+begin()返回第一个元素的迭代器
+end()返回最后一个元素的下一位置的迭代器(list为空时end()=begin())
+rbegin()返回链表最后一元素的后向容器
+rend()返回链表第一元素的下一位置的后向容器
+push_back()增加一元素到链表尾
+push_front()增加一元素到链表头
+pop_back()删除链表尾的一个元素
+pop_front()删除链表头的一元素
+clear()删除所有元素
+erase()删除一个元素或一个区域的元素(两个重载函数)
+remove()删除链表中匹配值的元素(匹配元素全部删除)
+empty()判断是否链表为空
+max_size()返回链表最大可能长度
+size()返回链表中元素个数
+reverse()反转链表
+sort()对链表排序，默认升序(可自定义回调函数)
+merge()合并两个有序链表并使之有序
+insert()在指定位置插入一个或多个元素(三个重载函数)，insert()函数把一个或若干个元素插入到你指出的iterator的位置。你的元素将出现在 iterator指出的位置以前
+swap()交换两个链表(两个重载)
+unique()删除相邻重复元素
+
+#include<iostream>
+#include<list>
+using namespace std;
+
+template <typename T>
+struct greater{
+	bool operator()(const T & t1, const T & t2)	//自定义排序函数
+	{
+		if (t1 > t2)	//‘>’降序
+			return true;
+		return false;
+	}
+};
+
+int main()
+{
+	//定义链表
+	list<int> list1;
+
+	//从链表尾部加入元素
+	for (int i = 6; i <= 10; i++)
+		list1.push_back(i);
+
+	//从链表头部加入元素
+	for (int i = 5; i >= 0; i--)
+		list1.push_front(i);
+
+	//获取链表元素个数
+	printf("%d\n", list1.size());
+
+	//顺序输出链表各个元素
+	list<int>::iterator it1;
+	for (it1 = list1.begin(); it1 != list1.end(); it1++)
+		printf("%d ", *it1);
+	printf("\n");
+
+	//分别从头部和尾部各删除一个元素
+	list1.pop_front();
+	list1.pop_back();
+
+	//删除第1个元素
+	list1.erase(list1.begin());
+
+	//删除链表中匹配值的元素
+	list1.remove(8);
+
+	for (it1 = list1.begin(); it1 != list1.end(); it1++)
+		printf("%d ", *it1);
+	printf("\n");   // 2 3 4 5 6 7 9
+
+	//往链表里插入元素的三种方法
+	list1.insert(++list1.begin(), 20);	//在第1个数后插入元素20
+	list1.insert(list1.begin(), 5, 30);	//在最前面插入5个元素，值均为30
+
+	for (it1 = list1.begin(); it1 != list1.end(); it1++)
+		printf("%d ", *it1);
+	printf("\n");  // 30 30 30 30 30 2 20 3 4 5 6 7 9
+
+
+	//list2是list1的copy
+	list<int> list2(list1);
+	list1.insert(++list1.begin(), list2.begin(), list2.end());	//把list2从头到尾插入到list1第1个数后面
+
+	for (it1 = list1.begin(); it1 != list1.end(); it1++)
+		printf("%d ", *it1);
+	printf("\n");  // 30 30 30 30 30 30 2 20 3 4 5 6 7 9 30 30 30 30 2 20 3 4 5 6 7 9
+
+	//逆序输出链表
+	list<int>::reverse_iterator it2;
+	for (it2 = list1.rbegin(); it2 != list1.rend(); it2++)
+		printf("%d ", *it2);
+	printf("\n");
+
+	//链表反转
+	list1.reverse();
+	for (it1 = list1.begin(); it1 != list1.end(); it1++)
+		printf("%d ", *it1);
+	printf("\n");
+
+	//链表排序，默认升序
+	list1.sort();
+	for (it1 = list1.begin(); it1 != list1.end(); it1++)
+		printf("%d ", *it1);
+	printf("\n");
+
+
+	list1.sort(greater<int>());	//降序
+	for (it1 = list1.begin(); it1 != list1.end(); it1++)
+		printf("%d ", *it1);
+	printf("\n");
+
+
+	//删除相邻重复的元素
+	list1.unique();
+	for (it1 = list1.begin(); it1 != list1.end(); it1++)
+		printf("%d ", *it1);
+	printf("\n");
+
+	list<int> list3;
+	for (int i = 1; i <= 4; i++)
+		list3.push_back(i * 100); // 100 200 300 400
+
+	list1.sort();  // merge需要排序
+
+	//把list3合并到list1，并使之有序，默认升序
+	list1.merge(list3);	//合并后list3为空
+	for (it1 = list1.begin(); it1 != list1.end(); it1++)
+		printf("%d ", *it1);
+	printf("\n");
+
+	for (int i = 1; i <= 4; i++)
+		list3.push_back(i * 100);
+
+	list1.sort(greater<int>());  //降序
+	list3.sort(greater<int>());  //降序
+
+
+	 list1.merge(list3, greater<int>());	//降序，合并后list3为空
+
+	 for (it1 = list1.begin(); it1 != list1.end(); it1++)
+		 printf("%d ", *it1);
+	 printf("\n");
+
+	//清除list中的所有元素
+	list1.clear();
+	list2.clear();
+
+	return 0;
+}

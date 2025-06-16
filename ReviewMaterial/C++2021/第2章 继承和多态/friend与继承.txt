@@ -1,0 +1,21 @@
+class Base{
+	friend class Frnd;
+protected:
+	int i;
+};
+
+class D1 : public Base{
+protected:
+	int j;
+};
+
+class Frnd{
+public:
+	int mem(Base b){ return b.i; } // ok
+	int mem(D1 d){ return d.j; } // error
+};
+
+class D2 : public Frnd{
+public:
+	int mem(Base b) { return b.i; } // error
+};

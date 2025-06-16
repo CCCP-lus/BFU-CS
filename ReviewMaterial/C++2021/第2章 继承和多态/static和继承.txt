@@ -1,0 +1,21 @@
+class Base{
+public:
+	static void statmem(){}
+};
+
+class Derived : public Base{
+public:
+	void f(const Derived &);
+};
+
+void Derived::f(const Derived & derived_obj){
+	Base::statmem(); // ok: Base defines statmem
+	Derived::statmem(); // ok: Derived inherits statmem
+	derived_obj.statmem();  // ok: accessed through Derived object
+	this->statmem(); // ok: accessed through this class
+}
+
+int main(){
+	
+	return 0;
+}

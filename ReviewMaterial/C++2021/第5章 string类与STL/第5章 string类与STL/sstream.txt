@@ -1,0 +1,41 @@
+#include<iostream>
+#include<sstream>
+using namespace std;
+
+// 整数和字符串相互转换
+int main(){ 
+	istringstream iss("12 34"); 
+	int a, b; 
+	iss >> a >> b; //从字符串输入流iss中读取两个数 
+	cout << a << " " << b << endl; 
+	
+	string str; 
+	ostringstream oss(str);//输出到string str中 
+	oss << a << " " << b;
+	cout << oss.str() << endl; //取出输出缓冲区的值
+
+	return 0;
+}
+
+或者
+
+#include <iostream>
+#include <string>
+#include <sstream>
+using namespace std;
+
+// 提取单词 过滤掉空格
+int main()
+{
+    string input("hello, this is a test");
+    istringstream is(input);
+    string s1,s2,s3,s4,s5;
+    is>>s1>>s2>>s3>>s4>>s5;//s1="hello,", s2="this", s3="is", s4="a", s5="test"
+    cout<<s1<<" "<<s2<<" "<<s3<<" "<<s4<<" "<<s5<<endl;
+    ostringstream os;
+    os<<s1<<s2<<s3<<s4<<s5;
+    string output(os.str());
+    cout<<output;
+    
+	return 0;
+}

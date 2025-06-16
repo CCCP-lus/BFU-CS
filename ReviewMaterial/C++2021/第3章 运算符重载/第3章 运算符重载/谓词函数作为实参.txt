@@ -1,0 +1,27 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <functional>
+using namespace std;
+
+bool GT5(const string & s){ return s.size() >= 5; }
+
+int main(){
+	vector<string> words;
+	words.push_back("hello");
+	words.push_back("world");
+	words.push_back("how");
+	words.push_back("are");
+	words.push_back("you");
+	words.push_back("happy");
+	words.push_back("life");
+
+	cout << count_if(words.begin(), words.end(), GT5) << endl;
+
+	sort(words.begin(),words.end(),greater<string>());
+	for(vector<string>::iterator it = words.begin();it!=words.end();it++)
+		cout<<*it<<endl;
+
+	return 0;
+}

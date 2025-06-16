@@ -1,0 +1,93 @@
+map，中文意思就是映射，map<key,value>,由pair组成的红黑树。map内部自建一颗红黑树(一种非严格意义上的平衡二叉树)，这颗树具有对数据自动排序的功能（默认按key从小到大排序），所以在map内部所有的数据都是有序的。
+
+#include<map>
+
+map<string,int>M;
+
+
+常见操作：
+M[str1]=1	数组形式插入元素
+M.insert(map<string,int>::value_type(str4,4));	用insert函数插入value_type数据
+M.insert(pair<string,int>(str4,4));	用insert函数插入pair数据
+M.size()	容器元素个数
+M.begin()	容器开始的迭代器
+M.end()		容器结束的迭代器
+M.find(str2)	查找元素str2，查找成功返回所在的迭代器，失败返回M.end()
+M.clear()	清空map
+M.lower_bound()	返回下界
+M.upper_bound()	返回上界
+
+例子：
+#include<map>
+#include<string>
+#include<iostream>
+using namespace std;
+int main()
+{
+	//定义map和迭代器
+	map<string,int>M;
+	map<string,int>::iterator it;
+
+	string str1="abc";
+	string str2="def";
+	string str3="ghijklmn";
+	string str4(str3,5,3);
+
+	//往map里插入数据
+	//用数组方式插入数据
+	M[str1]=1;
+	M[str2]=2;
+	M[str3]=3;
+	//用insert函数插入value_type数据
+	M.insert(map<string,int>::value_type(str4,4));
+	//用insert函数插入pair数据
+	M.insert(pair<string,int>("xyz",5));
+
+	//输出map里元素个数
+	printf("%d\n",M.size());
+
+	//顺序输出元素
+	for(it=M.begin();it!=M.end();it++)
+		cout<<it->first<<" "<<it->second<<endl;
+
+	//逆序输出元素
+	map<string,int>::reverse_iterator iter;
+	for(iter=M.rbegin();iter!=M.rend();iter++)
+		cout<<iter->first<<" "<<iter->second<<endl;
+
+	//查找元素str2，没有则返回M.end()
+	it=M.find(str2);
+	if(it == M.end())
+		printf("No result.\n");
+	else
+	{
+		printf("%d\n",M[str2]);
+		//删除指定元素
+		M.erase(it);
+	}
+//	删除map首位置元素：mp.erase(mp.begin());
+//	删除map末位置元素：mp.erase(mp.find(mp.rbegin()->first));
+
+	//清空map
+	M.clear();
+    	return 0;
+}
+
+
+map一对多映射的写法：
+int main()
+{
+	map<int,multiset<int> > m;
+	multiset<int>::iterator it;
+	for(int i=1;i<=10;i++)
+		m[1].insert(i);
+	for(it=m[1].begin();it!=m[1].end();it++)
+		printf("%d\n",*it);
+	m[1].clear();
+	m.clear();
+	return 0;
+}
+
+map一对数映射的写法：
+声明：map<pair<int,int>,int>mp;
+使用：mp[make_pair(tmp,pre)]=1;

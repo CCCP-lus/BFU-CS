@@ -1,0 +1,56 @@
+#include<vector>
+
+//定义：
+vector<int> s;					//定义一个空的vector对象，存储的是int类型的元素
+vector<int> s(n);				//定义一个含有n个int元素的vector对象
+vector<int> s(first,last);		//定义一个vector对象，并从由迭代器first和last定义的序列[first,last)中复制初值
+vector<int> s[];	//定义二维vector
+vector<vector<int> >s;
+
+//vector的基本操作
+s[i];			//访问容器中的元素
+s.front();		//返回首元素
+s.back();		//返回尾元素
+s.size();		//返回表长
+s.empty();		//表为空返回真
+s.push_back(x);	//向表尾插入元素x
+s.pop_back();	//删除表尾元素
+s.begin();		//返回指向首元素的随机存取迭代器
+s.end();		//返回指向尾元素的下一个位置的随机存取迭代器
+s.insert(it,x);				//向迭代器it指向的元素前插入新元素x
+s.insert(it,n,x);			//向迭代器it指向的元素前插入n个x
+s.insert(it,first.last);	//将由迭代器first和last所指定的序列[first,last)插入到迭代器it指向的元素前
+s.erase(it);			//删除由迭代器it所指向的元素
+s.erase(first,last);	//删除由迭代器first和last所指定的序列[first,last)
+s.reserve(n);			//预分配缓冲空间，是存储空间至少可容纳n个元素
+s.resize(n);			//改变序列的长度，超出的元素将会被删除，如果序列需要扩展(原空间小于n)，元素默认值将填满扩展出的空间
+s.resize(n,val);		//改变序列的长度，超出的元素将会被删除，如果序列需要扩展(原空间小于n)，将用val填满扩展出的空间
+s.clear();				//删除容器中的所有元素
+s.swap(v);				//将s和另一个vector对象v进行交换
+s.assign(first,last);	//将序列替换成由迭代器first和last所指定的序列[first,last)
+
+
+迭代器iterate用法参见下面例子
+
+例子：
+#include <iostream>
+#include <vector>
+using namespace std;
+int main()
+{
+	vector<int> s;
+	for(int i=0;i<10;i++)
+		s.push_back(i);
+
+//	输出所有元素
+//	for(int i=0;i<(int)s.size();i++)
+//		printf("%d ",s[i]);
+	
+//	用iterator输出所有元素
+	vector<int>::iterator it;
+	for(it=s.begin();it!=s.end();it++)
+		printf("%d ",*it);
+
+	printf("\n");
+    return 0;
+}

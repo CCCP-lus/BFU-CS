@@ -1,0 +1,33 @@
+常用操作：
+int size()const;        //返回当前字符串的大小
+int length()const;       //返回当前字符串的长度
+bool empty()const;        //当前字符串是否为空
+bool operator==(const string &s1,const string &s2)const;//比较两个字符串是否相等，运算符">","<",">=","<=","!="均被重载用于字符串的比较；
+string substr(int pos = 0,int n = npos) const;//返回pos开始的n个字符组成的字符串
+void swap(string &s2);    //交换当前字符串与s2的值
+
+int find(char c, int pos = 0) const;//从pos开始查找字符c在当前字符串的位置
+int find(const char *s, int pos = 0) const;//从pos开始查找字符串s在当前串中的位置
+int find(const char *s, int pos, int n) const;//从pos开始查找字符串s中前n个字符在当前串中的位置
+int find(const string &s, int pos = 0) const;//从pos开始查找字符串s在当前串中的位置
+//查找成功时返回所在位置，失败返回string::npos的值
+
+string &replace(int p0, int n0,const char *s);//删除从p0开始的n0个字符，然后在p0处插入串s
+string &replace(int p0, int n0,const char *s, int n);//删除p0开始的n0个字符，然后在p0处插入字符串s的前n个字符
+string &replace(int p0, int n0,const string &s);//删除从p0开始的n0个字符，然后在p0处插入串s
+string &replace(int p0, int n0,const string &s, int pos, int n);//删除p0开始的n0个字符，然后在p0处插入串s中从pos开始的n个字符
+string &replace(int p0, int n0,int n, char c);//删除p0开始的n0个字符，然后在p0处插入n个字符c
+
+string &insert(int p0, const char *s);
+string &insert(int p0, const char *s, int n);
+string &insert(int p0,const string &s);
+string &insert(int p0,const string &s, int pos, int n);
+//前4个函数在p0位置插入字符串s中pos开始的前n个字符
+
+
+iterator erase(iterator first, iterator last);//删除[first，last）之间的所有字符，返回删除后迭代器的位置
+iterator erase(iterator it);//删除it指向的字符，返回删除后迭代器的位置
+string &erase(int pos = 0, int n = npos);//删除pos开始的n个字符，返回修改后的字符串
+
+
+

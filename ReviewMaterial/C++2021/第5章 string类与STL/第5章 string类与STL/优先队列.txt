@@ -1,0 +1,38 @@
+#include<iostream>
+#include<algorithm>
+#include<sstream>
+#include<string>
+#include<queue>
+#include<functional>
+using namespace std;
+
+
+
+int main() {
+
+	const int len = 5;
+	int i;
+	int a[len] = { 3, 5, 9, 6, 2 };
+	//示例1
+	priority_queue<int> qi;//普通的优先级队列，按从大到小排序
+	for (i = 0; i < len; i++)
+		qi.push(a[i]);
+	for (i = 0; i < len; i++)
+	{
+		cout << qi.top() << " ";
+		qi.pop();
+	}
+	cout << endl;
+	//示例2
+	priority_queue<int, vector<int>, greater<int> > qi2;//从小到大的优先级队列，可将greater改为less，即为从大到小
+	for (i = 0; i < len; i++)
+		qi2.push(a[i]);
+	for (i = 0; i < len; i++)
+	{
+		cout << qi2.top() << " ";
+		qi2.pop();
+	}
+	cout << endl;
+
+	return 0;
+}

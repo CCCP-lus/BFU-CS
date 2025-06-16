@@ -1,0 +1,52 @@
+#include<iostream>
+using namespace std;
+
+class Base
+{
+private:
+	int b;
+public:
+	Base(int i=10)
+	{
+		b = i;
+	}
+	void show();
+	int getb(){return b;}
+};
+
+void Base::show()
+{
+	cout<<"b="<<b<<endl;
+}
+
+class Derived : public Base
+{
+private:
+	int d;
+public:
+	Derived(int j=20)
+	{
+		d = j;
+	}
+	void show(){cout<<"d="<<d<<endl;}
+	int getd(){return d;}
+};
+
+int main()
+{
+	Base b(1), *pb;
+	Derived d(2), *pd;
+	pb = &b;
+	pb->show();
+	pd = &d;
+	pd->show();
+	pb = &d;
+	cout<<pb->getb()<<endl;
+                cout<<pb->getd(); // error 
+	pb->show();
+	d.show();
+
+	pd = (Derived *)&b;
+
+	return 0;
+}

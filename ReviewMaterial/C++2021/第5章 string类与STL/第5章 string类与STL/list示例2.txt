@@ -1,0 +1,51 @@
+#include <iostream>
+#include <list>
+#include <functional>
+using namespace std;
+#define N 1010
+
+// 调用操作符和函数对象
+
+class Node{
+public:
+	int num;
+	friend bool operator>(const Node & t1, const Node & t2){ return t1.num > t2.num; }
+} node[N];
+
+class S{
+public:
+	bool operator()(const Node& t1, const Node& t2)	//自定义排序函数，重载函数调用操作符()
+	{
+		if (t1.num > t2.num)	//‘>’降序
+			return true;
+		return false;
+	}
+};
+
+int main()
+{
+	int f[6] = { 2, 3, 4, 5, 1, 0 };
+	list<Node> list1;
+	for (int i = 0; i<6; i++)
+	{
+		node[i].num = f[i];
+		list1.push_back(node[i]);
+	}
+//	S s1;             //函数对象
+//	list1.sort(s1);  // 降序
+
+//	list1.sort(S()); //构造一个临时函数对象
+
+	//使用标准库函数对象greater<Type>
+	list1.sort(greater<Node>());
+	
+
+	list<Node>::iterator ite;
+	for (ite = list1.begin(); ite != list1.end(); ite++)
+		printf("%d ", ite->num);
+	printf("\n");
+	return 0;
+}
+
+//标准库函数对象的调用 sort(svec.begin(),svec.end(),greater<string>());
+//greater<string>()是传递比较元素的谓词函数，是一个greater<string>类型的临时函数对象

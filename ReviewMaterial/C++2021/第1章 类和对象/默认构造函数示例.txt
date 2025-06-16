@@ -1,0 +1,33 @@
+#include <iostream>
+using namespace std;
+
+class Time
+{
+private:
+	int hour;
+	int minute;
+	int second;
+public:
+//	Time();
+	void disp();
+};
+
+//Time::Time()
+//{
+//	hour = 0;
+//	minute = 0;
+//	second = 0;
+//}
+
+void Time::disp()
+{
+	cout<<hour<<"Ð¡Ê±"<<minute<<"·ÖÖÓ"<<second<<"Ãë"<<endl;
+}
+
+int main()
+{
+	Time time;
+	time.disp();
+
+	return 0;
+}

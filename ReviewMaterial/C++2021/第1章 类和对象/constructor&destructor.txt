@@ -1,0 +1,76 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+
+class Person{
+	private:
+		char* id;
+		char* name;
+	public:
+		Person(const char*, const char*);
+		~Person();
+		const char* get_id() const;
+		const char* get_name() const;
+};
+
+Person::Person(const char* _id, const char* _name){
+	id = new char[strlen(_id)+1];
+	strcpy(id,_id);
+	name = new char[strlen(_name)+1];
+	strcpy(name,_name);
+}
+
+Person::~Person(){
+	delete [] id;
+	delete [] name;
+}
+
+const char* Person::get_id() const{
+	return id;
+}
+
+const char* Person::get_name() const{
+	return name;
+}
+
+int main(){
+	Person p("001","Mary");
+	cout<<p.get_id()<<" "<<p.get_name()<<endl;
+	return 0;
+}
+
+
+++++++++++
+
+#include<iostream>
+#include<string>
+using namespace std;
+
+class Person{
+	private:
+		string id;
+		string name;
+	public:
+		Person(const string &, const string &);
+		const string & get_id() const;
+		const string & get_name() const;
+};
+
+Person::Person(const string & _id, const string & _name){
+	id = _id;
+	name = _name;
+}
+
+const string & Person::get_id() const{
+	return id;
+}
+
+const string & Person::get_name() const{
+	return name;
+}
+
+int main(){
+	Person p("001","Mary");
+	cout<<p.get_id()<<" "<<p.get_name()<<endl;
+	return 0;
+}

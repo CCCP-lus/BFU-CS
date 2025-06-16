@@ -1,0 +1,37 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+    int a = 1, b = 2, c = 3, d = 4;
+    const int *p1;      //指向常量的指针 
+  
+    int const *p2;      //指向常量的指针，p1与p2等价
+    //const的位置在指针声明运算符*的左侧
+  
+    int *const p3 = &c; //常指针必须被初始化
+  
+    const int *const p4 = &d;//指向常量的常指针，必须被初始化
+  
+    p1 = &a;
+    p2 = &b;
+
+	//	*p1 = 10;
+  
+    cout << *p1 << "\t" << *p2 << "\t" << *p3 << "\t" << *p4 << endl;
+  
+    p1 = &b;    //指向常量的指针，p1可以指向不同地址，但是*p1不可以改变
+    p2 = &a;
+  
+    *p3 = *p4;  //常指针，p3的指向不可以改变，但是其指向的值可以改变
+  
+    //指向常量的常指针，指向不可改变，指向的值也不可改变
+  
+    cout << *p1 << "\t" << *p2 << "\t" << *p3 << "\t" << *p4 << endl;
+
+	//const int e = 10;
+	//int * p5 = &e;
+  
+    return 0;
+}
+
+// int strcmp(const char *str1, const char *str2); 
